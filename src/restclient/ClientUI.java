@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -11,6 +12,8 @@ import java.io.StringWriter;
 import java.io.Writer;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -23,6 +26,7 @@ public class ClientUI {
 
 	private JPanel buttonsPanel;
 	private JTextArea enteredURL;
+	private JTextArea jsonData;
 	private JTextArea console;
 	private JButton submitBtn;
 	
@@ -42,17 +46,27 @@ public class ClientUI {
 	}
 
 	private Container createUIContainer() {
-		Container container = new JPanel();
 
 		createMethodButtonsPanel();
 		createURLFields();
 		createSubmitButton();
 		createConsole();
 		
-		container.add(buttonsPanel);
-		container.add(enteredURL);
+		JPanel inputFieldsPanel = new JPanel();
+		inputFieldsPanel.setLayout(new BoxLayout(inputFieldsPanel, BoxLayout.Y_AXIS));
+		inputFieldsPanel.add(enteredURL);
+		inputFieldsPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+		inputFieldsPanel.add(jsonData);
+
+		JPanel upperCont1 = new JPanel();
+		upperCont1.add(buttonsPanel);
+		upperCont1.add(inputFieldsPanel);
+		upperCont1.add(submitBtn);
+		
+		Container container = new JPanel();
+		container.add(upperCont1);
 		container.add(console);
-		container.add(submitBtn);
+		
 		return container;
 	}
 
@@ -96,14 +110,22 @@ public class ClientUI {
 	}
 	
 	private void createURLFields() {
-		Dimension size = new Dimension(600, 80);
+		Dimension size = new Dimension(600, 40);
 		enteredURL = new JTextArea();
 		enteredURL.setBorder(BorderFactory.createLineBorder(Color.BLUE));
 		enteredURL.setWrapStyleWord(true);
 		enteredURL.setLineWrap(true);
 		enteredURL.setSize(size);
 		enteredURL.setPreferredSize(size);
-		enteredURL.setMaximumSize(size);;
+		enteredURL.setMaximumSize(size);
+		
+		jsonData = new JTextArea();
+		jsonData.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+		jsonData.setWrapStyleWord(true);
+		jsonData.setLineWrap(true);
+		jsonData.setSize(size);
+		jsonData.setPreferredSize(size);
+		jsonData.setMaximumSize(size);
 	}
 	
 
@@ -126,7 +148,7 @@ public class ClientUI {
 				Writer writer = new StringWriter();
 				ServiceManager serv = new ServiceManager(writer);
 				try {
-					serv.send(enteredURL.getText(), getMethod());
+					serv.send(enteredURL.getText(), getMethod(), jsonData.getText());
 					console.setText(writer.toString());
 				} catch (IOException e1) {
 					e1.printStackTrace();

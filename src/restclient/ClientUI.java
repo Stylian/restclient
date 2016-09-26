@@ -21,8 +21,10 @@ import javax.swing.JTextField;
 
 public class ClientUI {
 
+	private JPanel buttonsPanel;
 	private JTextArea enteredURL;
 	private JTextArea console;
+	private JButton submitBtn;
 	
 	private JRadioButton getBtn;
 	private JRadioButton postBtn;
@@ -35,14 +37,26 @@ public class ClientUI {
 	}
 	
 	public void initAndShowUI() {
-		
+		Container container = createUIContainer();
+		createWindow(container);
+	}
+
+	private Container createUIContainer() {
 		Container container = new JPanel();
 
-		container.add(createMethodButtonsPanel());
-		container.add(createURLField());
-		container.add(createSubmitButton());
-		container.add(createConsole());
+		createMethodButtonsPanel();
+		createURLFields();
+		createSubmitButton();
+		createConsole();
 		
+		container.add(buttonsPanel);
+		container.add(enteredURL);
+		container.add(console);
+		container.add(submitBtn);
+		return container;
+	}
+
+	private void createWindow(Container container) {
 		Dimension size = new Dimension(768, 480);
 		
 		JFrame frame = new JFrame();
@@ -56,8 +70,44 @@ public class ClientUI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 	}
+	
+	private void createMethodButtonsPanel() {
+		buttonsPanel = new JPanel();
+		buttonsPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+		buttonsPanel.setLayout(new GridLayout(4, 1));
+		
+		ButtonGroup btnGroup = new ButtonGroup();
+		
+		getBtn = new JRadioButton("GET");
+		btnGroup.add(getBtn);
+		buttonsPanel.add(getBtn);
+		
+		postBtn = new JRadioButton("POST");
+		btnGroup.add(postBtn);
+		buttonsPanel.add(postBtn);
+		
+		putBtn = new JRadioButton("PUT");
+		btnGroup.add(putBtn);
+		buttonsPanel.add(putBtn);
+		
+		deleteBtn = new JRadioButton("DELETE");
+		btnGroup.add(deleteBtn);
+		buttonsPanel.add(deleteBtn);
+	}
+	
+	private void createURLFields() {
+		Dimension size = new Dimension(600, 80);
+		enteredURL = new JTextArea();
+		enteredURL.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+		enteredURL.setWrapStyleWord(true);
+		enteredURL.setLineWrap(true);
+		enteredURL.setSize(size);
+		enteredURL.setPreferredSize(size);
+		enteredURL.setMaximumSize(size);;
+	}
+	
 
-	private JTextArea createConsole() {
+	private void createConsole() {
 		Dimension size = new Dimension(700, 300);
 		console = new JTextArea();
 		console.setBorder(BorderFactory.createLineBorder(Color.BLUE));
@@ -66,11 +116,10 @@ public class ClientUI {
 		console.setSize(size);
 		console.setPreferredSize(size);
 		console.setMaximumSize(size);;
-		return console;
 	}
 	
-	private JButton createSubmitButton() {
-		JButton submitBtn = new JButton("Send");
+	private void createSubmitButton() {
+		submitBtn = new JButton("Send");
 		submitBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -81,52 +130,14 @@ public class ClientUI {
 					console.setText(writer.toString());
 				} catch (IOException e1) {
 					e1.printStackTrace();
+				} catch (Exception e1) {
+					e1.printStackTrace();
 				}
 			}
-		});
-		
-		return submitBtn;
-	}
-
-	private JTextArea createURLField() {
-		Dimension size = new Dimension(600, 80);
-		enteredURL = new JTextArea();
-		enteredURL.setBorder(BorderFactory.createLineBorder(Color.BLUE));
-		enteredURL.setWrapStyleWord(true);
-		enteredURL.setLineWrap(true);
-		enteredURL.setSize(size);
-		enteredURL.setPreferredSize(size);
-		enteredURL.setMaximumSize(size);;
-		return enteredURL;
+		});		
 	}
 	
-	private JPanel createMethodButtonsPanel() {
-		JPanel buttonsPanel = new JPanel();
-		buttonsPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-		buttonsPanel.setLayout(new GridLayout(4, 1));
-		
-		ButtonGroup btnGroup = new ButtonGroup();
-		
-		getBtn = new JRadioButton("GET");
-		btnGroup.add(getBtn);
-		buttonsPanel.add(getBtn);
-
-		postBtn = new JRadioButton("POST");
-		btnGroup.add(postBtn);
-		buttonsPanel.add(postBtn);
-
-		putBtn = new JRadioButton("PUT");
-		btnGroup.add(putBtn);
-		buttonsPanel.add(putBtn);
-		
-		deleteBtn = new JRadioButton("DELETE");
-		btnGroup.add(deleteBtn);
-		buttonsPanel.add(deleteBtn);
-		
-		return buttonsPanel;
-	}
-	
-	private Method getMethod() {
+	private Method getMethod() throws Exception {
 
 		if(getBtn.isSelected()) {
 			return Method.GET;
@@ -141,7 +152,7 @@ public class ClientUI {
 			return Method.DELETE;
 		}
 		
-		return null;
+		throw new Exception("no method button has been selected!");
 	}
 	
 }

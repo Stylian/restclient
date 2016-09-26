@@ -6,6 +6,9 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -18,6 +21,14 @@ import javax.swing.JTextField;
 
 public class ClientUI {
 
+	private JTextArea enteredURL;
+	private JTextArea console;
+	
+	private JRadioButton getBtn;
+	private JRadioButton postBtn;
+	private JRadioButton putBtn;
+	private JRadioButton deleteBtn;
+	
 	public static void main(String[] args) {
 		ClientUI clientUI = new ClientUI();
 		clientUI.initAndShowUI();
@@ -27,7 +38,7 @@ public class ClientUI {
 		
 		Container container = new JPanel();
 
-		container.add(createMethodButtons());
+		container.add(createMethodButtonsPanel());
 		container.add(createURLField());
 		container.add(createSubmitButton());
 		container.add(createConsole());
@@ -48,7 +59,7 @@ public class ClientUI {
 
 	private JTextArea createConsole() {
 		Dimension size = new Dimension(700, 300);
-		JTextArea console = new JTextArea();
+		console = new JTextArea();
 		console.setBorder(BorderFactory.createLineBorder(Color.BLUE));
 		console.setWrapStyleWord(true);
 		console.setLineWrap(true);
@@ -63,7 +74,14 @@ public class ClientUI {
 		submitBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				Writer writer = new StringWriter();
+				ServiceManager serv = new ServiceManager(writer);
+				try {
+					serv.send(enteredURL.getText(), getMethod());
+					console.setText(writer.toString());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		
@@ -72,40 +90,59 @@ public class ClientUI {
 
 	private JTextArea createURLField() {
 		Dimension size = new Dimension(600, 80);
-		JTextArea textArea = new JTextArea();
-		textArea.setBorder(BorderFactory.createLineBorder(Color.BLUE));
-		textArea.setWrapStyleWord(true);
-		textArea.setLineWrap(true);
-		textArea.setSize(size);
-		textArea.setPreferredSize(size);
-		textArea.setMaximumSize(size);;
-		return textArea;
+		enteredURL = new JTextArea();
+		enteredURL.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+		enteredURL.setWrapStyleWord(true);
+		enteredURL.setLineWrap(true);
+		enteredURL.setSize(size);
+		enteredURL.setPreferredSize(size);
+		enteredURL.setMaximumSize(size);;
+		return enteredURL;
 	}
-
-	private JPanel createMethodButtons() {
+	
+	private JPanel createMethodButtonsPanel() {
 		JPanel buttonsPanel = new JPanel();
 		buttonsPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
 		buttonsPanel.setLayout(new GridLayout(4, 1));
 		
 		ButtonGroup btnGroup = new ButtonGroup();
 		
-		JRadioButton getBtn = new JRadioButton("GET");
+		getBtn = new JRadioButton("GET");
 		btnGroup.add(getBtn);
 		buttonsPanel.add(getBtn);
 
-		JRadioButton postBtn = new JRadioButton("POST");
+		postBtn = new JRadioButton("POST");
 		btnGroup.add(postBtn);
 		buttonsPanel.add(postBtn);
 
-		JRadioButton putBtn = new JRadioButton("PUT");
+		putBtn = new JRadioButton("PUT");
 		btnGroup.add(putBtn);
 		buttonsPanel.add(putBtn);
 		
-		JRadioButton deleteBtn = new JRadioButton("DELETE");
+		deleteBtn = new JRadioButton("DELETE");
 		btnGroup.add(deleteBtn);
 		buttonsPanel.add(deleteBtn);
 		
 		return buttonsPanel;
 	}
 	
+	private Method getMethod() {
+
+		if(getBtn.isSelected()) {
+			return Method.GET;
+		}
+		if(postBtn.isSelected()) {
+			return Method.POST;
+		}
+		if(putBtn.isSelected()) {
+			return Method.PUT;
+		}
+		if(deleteBtn.isSelected()) {
+			return Method.DELETE;
+		}
+		
+		return null;
+	}
+	
 }
+

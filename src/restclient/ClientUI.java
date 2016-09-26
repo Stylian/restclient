@@ -21,6 +21,8 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 public class ClientUI {
 
@@ -112,7 +114,7 @@ public class ClientUI {
 	private void createURLFields() {
 		Dimension size = new Dimension(600, 40);
 		enteredURL = new JTextArea();
-		enteredURL.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+		enteredURL.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		enteredURL.setWrapStyleWord(true);
 		enteredURL.setLineWrap(true);
 		enteredURL.setSize(size);
@@ -120,7 +122,7 @@ public class ClientUI {
 		enteredURL.setMaximumSize(size);
 		
 		jsonData = new JTextArea();
-		jsonData.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+		jsonData.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		jsonData.setWrapStyleWord(true);
 		jsonData.setLineWrap(true);
 		jsonData.setSize(size);
@@ -130,9 +132,9 @@ public class ClientUI {
 	
 
 	private void createConsole() {
-		Dimension size = new Dimension(700, 300);
+		Dimension size = new Dimension(740, 300);
 		console = new JTextArea();
-		console.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+		console.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		console.setWrapStyleWord(true);
 		console.setLineWrap(true);
 		console.setSize(size);

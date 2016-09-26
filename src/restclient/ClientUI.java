@@ -20,7 +20,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
+import javax.swing.text.DefaultCaret;
 
 public class ClientUI {
 
@@ -39,8 +42,13 @@ public class ClientUI {
 	private JRadioButton deleteBtn;
 	
 	public static void main(String[] args) {
-		ClientUI clientUI = new ClientUI();
-		clientUI.initAndShowUI();
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				ClientUI clientUI = new ClientUI();
+				clientUI.initAndShowUI();
+			}
+		});
 	}
 	
 	public void initAndShowUI() {
@@ -146,7 +154,9 @@ public class ClientUI {
 	private void createConsole() {
 		Dimension size = new Dimension(740, 460);
 		console = new JTextArea();
-		console.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+		DefaultCaret caret = (DefaultCaret)console.getCaret();
+		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+//		console.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		console.setWrapStyleWord(true);
 		console.setLineWrap(true);
 		console.setSize(size);
@@ -168,7 +178,7 @@ public class ClientUI {
 				ServiceManager serv = new ServiceManager(writer);
 				try {
 					serv.send(enteredURL.getText(), getMethod(), jsonData.getText());
-					console.append(writer.toString());
+					console.setText(writer.toString());
 				} catch (IOException e1) {
 					console.append("url does not seem correct\n");
 				} catch (Exception e1) {

@@ -53,7 +53,7 @@ public class ServiceManager {
 
 		conn.disconnect();
 		
-		writer.write("\n------------------------------");
+		writer.write("\n------------------------------\n");
 		
 	}
 }

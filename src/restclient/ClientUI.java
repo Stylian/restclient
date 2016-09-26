@@ -1,10 +1,10 @@
 package restclient;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -17,16 +17,17 @@ import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 public class ClientUI {
 
 	private JPanel buttonsPanel;
+	private JPanel enteredURLPanel;
+	private JPanel consolePanel;
+	private JPanel jsonDataPanel;
 	private JTextArea enteredURL;
 	private JTextArea jsonData;
 	private JTextArea console;
@@ -56,9 +57,9 @@ public class ClientUI {
 		
 		JPanel inputFieldsPanel = new JPanel();
 		inputFieldsPanel.setLayout(new BoxLayout(inputFieldsPanel, BoxLayout.Y_AXIS));
-		inputFieldsPanel.add(enteredURL);
+		inputFieldsPanel.add(enteredURLPanel);
 		inputFieldsPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-		inputFieldsPanel.add(jsonData);
+		inputFieldsPanel.add(jsonDataPanel);
 
 		JPanel upperCont1 = new JPanel();
 		upperCont1.add(buttonsPanel);
@@ -67,13 +68,13 @@ public class ClientUI {
 		
 		Container container = new JPanel();
 		container.add(upperCont1);
-		container.add(console);
+		container.add(consolePanel);
 		
 		return container;
 	}
 
 	private void createWindow(Container container) {
-		Dimension size = new Dimension(768, 480);
+		Dimension size = new Dimension(768, 680);
 		
 		JFrame frame = new JFrame();
 		frame.setTitle("Rest Client");
@@ -121,6 +122,11 @@ public class ClientUI {
 		enteredURL.setPreferredSize(size);
 		enteredURL.setMaximumSize(size);
 		
+		enteredURLPanel = new JPanel();
+		enteredURLPanel.setLayout(new BorderLayout());
+		enteredURLPanel.add(new JLabel("url"), BorderLayout.NORTH);
+		enteredURLPanel.add(enteredURL, BorderLayout.SOUTH);
+		
 		jsonData = new JTextArea();
 		jsonData.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		jsonData.setWrapStyleWord(true);
@@ -128,18 +134,29 @@ public class ClientUI {
 		jsonData.setSize(size);
 		jsonData.setPreferredSize(size);
 		jsonData.setMaximumSize(size);
+		
+		jsonDataPanel = new JPanel();
+		jsonDataPanel.setLayout(new BorderLayout());
+		jsonDataPanel.add(new JLabel("json data"), BorderLayout.NORTH);
+		jsonDataPanel.add(jsonData, BorderLayout.SOUTH);
+		
 	}
 	
 
 	private void createConsole() {
-		Dimension size = new Dimension(740, 300);
+		Dimension size = new Dimension(740, 460);
 		console = new JTextArea();
 		console.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		console.setWrapStyleWord(true);
 		console.setLineWrap(true);
 		console.setSize(size);
 		console.setPreferredSize(size);
-		console.setMaximumSize(size);;
+		console.setMaximumSize(size);
+		
+		consolePanel = new JPanel();
+		consolePanel.setLayout(new BorderLayout());
+		consolePanel.add(new JLabel("output"), BorderLayout.NORTH);
+		consolePanel.add(console, BorderLayout.SOUTH);
 	}
 	
 	private void createSubmitButton() {
@@ -153,9 +170,9 @@ public class ClientUI {
 					serv.send(enteredURL.getText(), getMethod(), jsonData.getText());
 					console.setText(writer.toString());
 				} catch (IOException e1) {
-					e1.printStackTrace();
+					console.setText("url does not seem correct");
 				} catch (Exception e1) {
-					e1.printStackTrace();
+					console.setText("you have not selected a method!");
 				}
 			}
 		});		

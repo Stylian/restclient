@@ -168,11 +168,11 @@ public class ClientUI {
 				ServiceManager serv = new ServiceManager(writer);
 				try {
 					serv.send(enteredURL.getText(), getMethod(), jsonData.getText());
-					console.setText(writer.toString());
+					console.append(writer.toString());
 				} catch (IOException e1) {
-					console.setText("url does not seem correct");
+					console.append("url does not seem correct\n");
 				} catch (Exception e1) {
-					console.setText("you have not selected a method!");
+					console.append("you have not selected a method!\n");
 				}
 			}
 		});		

@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -122,7 +123,7 @@ public class ClientUI {
 	
 	private void createURLFields() {
 		Dimension size = new Dimension(600, 40);
-		enteredURL = new JTextArea();
+		enteredURL = new JTextArea("http://jsonplaceholder.typicode.com/posts/1");
 		enteredURL.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		enteredURL.setWrapStyleWord(true);
 		enteredURL.setLineWrap(true);
@@ -135,7 +136,7 @@ public class ClientUI {
 		enteredURLPanel.add(new JLabel("url"), BorderLayout.NORTH);
 		enteredURLPanel.add(enteredURL, BorderLayout.SOUTH);
 		
-		jsonData = new JTextArea();
+		jsonData = new JTextArea("{ \"id\": \"1\", \"title\": \"foo2\", \"body\": \"bar\", \"userId\": \"1\" }");
 		jsonData.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		jsonData.setWrapStyleWord(true);
 		jsonData.setLineWrap(true);

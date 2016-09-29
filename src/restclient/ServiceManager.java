@@ -17,10 +17,14 @@ public class ServiceManager {
 	}
 	
 	public void send(String path, Method method) throws IOException {
-		send(path, method, null);
+		send(path, method, null, null);
 	}
 	
 	public void send(String path, Method method, String data) throws IOException {
+		send(path, method, data, null);
+	}
+	
+	public void send(String path, Method method, String data, String filepath) throws IOException {
 
 		URL url = new URL(path);
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();

@@ -176,7 +176,7 @@ public class ClientUI {
 				Writer writer = new StringWriter();
 				ServiceManager serv = new ServiceManager(writer);
 				try {
-					serv.send(enteredURL.getText(), getMethod(), jsonData.getText());
+					serv.send(enteredURL.getText(), getMethod(), jsonData.getText(), null);
 					console.setText(writer.toString());
 				} catch (IOException e1) {
 					console.append("url does not seem correct\n");

@@ -1,4 +1,4 @@
-package restclient;
+package main.restclient;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

@@ -10,6 +10,9 @@ import java.net.URL;
 
 public class ServiceManager {
 
+	public static final String USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11"
+			+ " (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11";
+	
 	private Writer writer;
 	
 	public ServiceManager(Writer writer) {
@@ -31,8 +34,7 @@ public class ServiceManager {
 		conn.setRequestMethod(method.toString());
 		conn.setRequestProperty("Content-Type", "application/json");
 		conn.setRequestProperty("Accept", "application/json");
-		conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11"
-				+ " (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11");
+		conn.setRequestProperty("User-Agent", USER_AGENT);
 		
 		switch(method) {
 		case POST:

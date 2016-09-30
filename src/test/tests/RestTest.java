@@ -1,9 +1,12 @@
-package test.src;
+package test.tests;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 
+import org.apache.commons.io.FileUtils;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,7 +27,7 @@ public class RestTest {
 	@Test
 	public void get() throws IOException {
 		serv.send("http://jsonplaceholder.typicode.com/posts/1", Method.GET);
-		System.out.println(writer);
+		Assert.assertEquals("get failed" , FileUtils.readFileToString(new File("src/test/resources/get.txt")), serv.JsonOutput);
 	}
 
 	@Test

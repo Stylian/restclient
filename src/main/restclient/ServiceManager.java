@@ -14,6 +14,7 @@ public class ServiceManager {
 			+ " (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11";
 	
 	private Writer writer;
+	public String JsonOutput;
 	
 	public ServiceManager(Writer writer) {
 		this.writer = writer;
@@ -52,9 +53,11 @@ public class ServiceManager {
 		BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
 
 		String output;
+		JsonOutput = "";
 		writer.write("\nOutput from Server .... \n");
 		while ((output = br.readLine()) != null) {
 			writer.write("\n" + output);
+			JsonOutput += output;
 		}
 
 		conn.disconnect();

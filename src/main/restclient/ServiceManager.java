@@ -13,8 +13,10 @@ public class ServiceManager {
 	public static final String USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11"
 			+ " (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11";
 	
-	private Writer writer;
+	public Writer writer;
 	public String JsonOutput;
+	public String requestMethodOutput;
+	public int responseCodeOutput;
 	
 	public ServiceManager(Writer writer) {
 		this.writer = writer;
@@ -53,13 +55,17 @@ public class ServiceManager {
 		BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
 
 		String output;
-		JsonOutput = "";
+		StringBuilder jsonOutputBuilder = new StringBuilder();
 		writer.write("\nOutput from Server .... \n");
 		while ((output = br.readLine()) != null) {
 			writer.write("\n" + output);
-			JsonOutput += output;
+			jsonOutputBuilder.append(output);
 		}
-
+		
+		JsonOutput = jsonOutputBuilder.toString();
+		requestMethodOutput = conn.getRequestMethod();
+		responseCodeOutput = conn.getResponseCode();
+				
 		conn.disconnect();
 		
 		writer.write("\n------------------------------\n");

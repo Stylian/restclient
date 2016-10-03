@@ -12,15 +12,12 @@ public class ServiceManager {
 
 	public static final String USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11"
 			+ " (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11";
-	
-	public Writer writer;
+
 	public String JsonOutput;
 	public String requestMethodOutput;
 	public int responseCodeOutput;
 	
-	public ServiceManager(Writer writer) {
-		this.writer = writer;
-	}
+	public ServiceManager() { }
 	
 	public void send(String path, Method method) throws IOException {
 		send(path, method, null, null);
@@ -48,17 +45,11 @@ public class ServiceManager {
 			os.flush();
 		}
 
-		writer.write("\n------------------------------");
-		writer.write("\nRequest Method: " + conn.getRequestMethod());
-		writer.write("\nResponse Code: " + conn.getResponseCode());
-
 		BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
 
 		String output;
 		StringBuilder jsonOutputBuilder = new StringBuilder();
-		writer.write("\nOutput from Server .... \n");
 		while ((output = br.readLine()) != null) {
-			writer.write("\n" + output);
 			jsonOutputBuilder.append(output);
 		}
 		
@@ -67,8 +58,6 @@ public class ServiceManager {
 		responseCodeOutput = conn.getResponseCode();
 				
 		conn.disconnect();
-		
-		writer.write("\n------------------------------\n");
 		
 	}
 }

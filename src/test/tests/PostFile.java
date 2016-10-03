@@ -20,8 +20,7 @@ public class PostFile {
 	
 	@Before
 	public void init() {
-		writer = new StringWriter();
-		serv = new ServiceManager(writer);	
+		serv = new ServiceManager();	
 	}
 	
 	@Test

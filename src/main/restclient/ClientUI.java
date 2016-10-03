@@ -173,11 +173,10 @@ public class ClientUI {
 		submitBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Writer writer = new StringWriter();
-				ServiceManager serv = new ServiceManager(writer);
+				ServiceManager serv = new ServiceManager();
 				try {
 					serv.send(enteredURL.getText(), getMethod(), jsonData.getText(), null);
-					console.setText(writer.toString());
+			//		console.setText(writer.toString());
 				} catch (IOException e1) {
 					console.append("url does not seem correct\n");
 				} catch (Exception e1) {

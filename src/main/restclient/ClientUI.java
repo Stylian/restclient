@@ -178,9 +178,9 @@ public class ClientUI {
 					serv.send(enteredURL.getText(), getMethod(), jsonData.getText(), null);
 					
 					StringBuilder sb = new StringBuilder();
-					sb.append("\n Request Code: " + serv.responseCodeOutput);
-					sb.append("\n Request Method: " + serv.requestMethodOutput);
-					sb.append("\n Response: \n" + serv.JsonOutput);
+					sb.append("\n Request Method: " + serv.getResponseData().getRequestMethod());
+					sb.append("\n Status Code: " + serv.getResponseData().getStatusCode());
+					sb.append("\n Response: \n" + serv.getResponseData().getResponseData());
 					console.setText(sb.toString());
 				} catch (IOException e1) {
 					console.append("url does not seem correct\n");

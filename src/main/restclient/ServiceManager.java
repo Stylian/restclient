@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -13,9 +12,7 @@ public class ServiceManager {
 	public static final String USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11"
 			+ " (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11";
 
-	public String JsonOutput;
-	public String requestMethodOutput;
-	public int responseCodeOutput;
+	private ServiceResponse responseData;
 	
 	public ServiceManager() { }
 	
@@ -53,11 +50,14 @@ public class ServiceManager {
 			jsonOutputBuilder.append(output);
 		}
 		
-		JsonOutput = jsonOutputBuilder.toString();
-		requestMethodOutput = conn.getRequestMethod();
-		responseCodeOutput = conn.getResponseCode();
+		responseData = new ServiceResponse(jsonOutputBuilder.toString(), conn.getRequestMethod(), conn.getResponseCode());
 				
 		conn.disconnect();
 		
 	}
+
+	public ServiceResponse getResponseData() {
+		return responseData;
+	}
+	
 }

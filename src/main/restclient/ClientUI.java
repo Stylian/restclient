@@ -176,7 +176,12 @@ public class ClientUI {
 				ServiceManager serv = new ServiceManager();
 				try {
 					serv.send(enteredURL.getText(), getMethod(), jsonData.getText(), null);
-			//		console.setText(writer.toString());
+					
+					StringBuilder sb = new StringBuilder();
+					sb.append("\n Request Code: " + serv.responseCodeOutput);
+					sb.append("\n Request Method: " + serv.requestMethodOutput);
+					sb.append("\n Response: \n" + serv.JsonOutput);
+					console.setText(sb.toString());
 				} catch (IOException e1) {
 					console.append("url does not seem correct\n");
 				} catch (Exception e1) {

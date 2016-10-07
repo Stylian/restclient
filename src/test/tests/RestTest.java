@@ -8,7 +8,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import main.restclient.Method;
 import main.restclient.ServiceManager;
 
 public class RestTest {

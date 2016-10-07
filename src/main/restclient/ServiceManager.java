@@ -1,9 +1,11 @@
 package main.restclient;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.file.Files;
 
 public class ServiceManager {
 
@@ -11,6 +13,7 @@ public class ServiceManager {
 			+ " (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11";
 
 	private TransmissionMetadata metadata;
+	private File file;
 	
 	public ServiceManager() { }
 	
@@ -59,6 +62,11 @@ public class ServiceManager {
 		
 	}
 
+	public ServiceManager addFile(File file) {
+		this.file = file;
+		return this;
+	}
+	
 	private HttpURLConnection sendRequest(String path, Method method) throws IOException {
 		URL url = new URL(path);
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -71,9 +79,12 @@ public class ServiceManager {
 	
 	private void attachData(HttpURLConnection conn, String data) throws IOException {
 		conn.setDoOutput(true);
+		OutputStream os = conn.getOutputStream();
 		if(data != null) {
-			OutputStream os = conn.getOutputStream();
 			os.write(data.getBytes("UTF-8"));
+		}
+		if(file != null) {
+			Files.copy(file.toPath(), os);
 		}
 	}
 

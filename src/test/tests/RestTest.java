@@ -22,28 +22,28 @@ public class RestTest {
 	
 	@Test
 	public void get() throws IOException {
-		serv.send("http://jsonplaceholder.typicode.com/posts/1", Method.GET);
+		serv.get("http://jsonplaceholder.typicode.com/posts/1");
 		Assert.assertEquals("get failed" , FileUtils.readLines(new File("src/test/resources/json_responses.txt")).get(0), serv.getMetadata().getResponse());
 		Assert.assertEquals(200, serv.getMetadata().getStatusCode());
 	}
 
 	@Test
 	public void post() throws IOException {
-		serv.send("http://jsonplaceholder.typicode.com/posts", Method.POST, "{ \"id\": \"1\", \"title\": \"foo\", \"body\": \"bar\", \"userId\": \"1\" }");
+		serv.post("http://jsonplaceholder.typicode.com/posts", "{ \"id\": \"1\", \"title\": \"foo\", \"body\": \"bar\", \"userId\": \"1\" }");
 		Assert.assertEquals("get failed" , FileUtils.readLines(new File("src/test/resources/json_responses.txt")).get(1), serv.getMetadata().getResponse());
 		Assert.assertEquals(201, serv.getMetadata().getStatusCode());
 	}
 	
 	@Test
 	public void put() throws IOException {
-		serv.send("http://jsonplaceholder.typicode.com/posts/1", Method.PUT, "{ \"id\": \"1\", \"title\": \"foo2\", \"body\": \"bar\", \"userId\": \"1\" }");
+		serv.put("http://jsonplaceholder.typicode.com/posts/1", "{ \"id\": \"1\", \"title\": \"foo2\", \"body\": \"bar\", \"userId\": \"1\" }");
 		Assert.assertEquals("get failed" , FileUtils.readLines(new File("src/test/resources/json_responses.txt")).get(2), serv.getMetadata().getResponse());
 		Assert.assertEquals(200, serv.getMetadata().getStatusCode());
 	}
 	
 	@Test
 	public void delete() throws IOException {
-		serv.send("http://jsonplaceholder.typicode.com/posts/1", Method.DELETE);
+		serv.delete("http://jsonplaceholder.typicode.com/posts/1", "");
 		Assert.assertEquals("get failed" , FileUtils.readLines(new File("src/test/resources/json_responses.txt")).get(3), serv.getMetadata().getResponse());
 		Assert.assertEquals(200, serv.getMetadata().getStatusCode());
 	}

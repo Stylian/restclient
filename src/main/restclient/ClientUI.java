@@ -172,7 +172,7 @@ public class ClientUI {
 			public void actionPerformed(ActionEvent e) {
 				ServiceManager serv = new ServiceManager();
 				try {
-					serv.send(enteredURL.getText(), getMethod(), jsonData.getText(), null);
+					serv.send(enteredURL.getText(), getMethod(), jsonData.getText());
 					
 					StringBuilder sb = new StringBuilder();
 					sb.append("\n Status Code: " + serv.getMetadata().getStatusCode());

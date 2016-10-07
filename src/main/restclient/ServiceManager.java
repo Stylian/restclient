@@ -14,36 +14,68 @@ public class ServiceManager {
 	
 	public ServiceManager() { }
 	
-	public void send(String path, Method method) throws IOException {
-		send(path, method, null, null);
+	public void get(String path) throws IOException {
+		get(path, null);
+	}
+	
+	public void get(String path, String data) throws IOException {
+		send(path, Method.GET, data);
+	}
+	
+	public void post(String path) throws IOException {
+		post(path, null);
+	}
+	
+	public void post(String path, String data) throws IOException {
+		send(path, Method.POST, data);
+	}
+	
+	public void put(String path) throws IOException {
+		put(path, null);
+	}
+	
+	public void put(String path, String data) throws IOException {
+		send(path, Method.PUT, data);
+	}
+	
+	public void delete(String path) throws IOException {
+		delete(path, null);
+	}
+	
+	public void delete(String path, String data) throws IOException {
+		send(path, Method.DELETE, data);
 	}
 	
 	public void send(String path, Method method, String data) throws IOException {
-		send(path, method, data, null);
-	}
-	
-	public void send(String path, Method method, String data, String filepath) throws IOException {
 
+		HttpURLConnection conn = sendRequest(path, method);
+		
+		if(method.equals(Method.POST) || method.equals(Method.PUT)) {
+			attachData(conn, data);
+		}
+		metadata = TransmissionMetadata.grabData(conn);
+
+		conn.disconnect();
+		
+	}
+
+	private HttpURLConnection sendRequest(String path, Method method) throws IOException {
 		URL url = new URL(path);
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setRequestMethod(method.toString());
 		conn.setRequestProperty("Content-Type", "application/json");
 		conn.setRequestProperty("Accept", "application/json");
 		conn.setRequestProperty("User-Agent", USER_AGENT);
-		
-		switch(method) {
-		case POST:
-		case PUT:
-			conn.setDoOutput(true);
+		return conn;
+	}
+	
+	private void attachData(HttpURLConnection conn, String data) throws IOException {
+		conn.setDoOutput(true);
+		if(data != null) {
 			OutputStream os = conn.getOutputStream();
 			os.write(data.getBytes("UTF-8"));
 			os.flush();
 		}
-		
-		metadata = TransmissionMetadata.grabData(conn);
-
-		conn.disconnect();
-		
 	}
 
 	public TransmissionMetadata getMetadata() {

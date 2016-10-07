@@ -26,7 +26,7 @@ public class RestTest {
 		Assert.assertEquals("get failed" , FileUtils.readLines(new File("src/test/resources/json_responses.txt")).get(0), serv.getMetadata().getResponse());
 		Assert.assertEquals(200, serv.getMetadata().getStatusCode());
 	}
-
+	
 	@Test
 	public void post() throws IOException {
 		serv.post("http://jsonplaceholder.typicode.com/posts", "{ \"id\": \"1\", \"title\": \"foo\", \"body\": \"bar\", \"userId\": \"1\" }");

@@ -74,7 +74,6 @@ public class ServiceManager {
 		if(data != null) {
 			OutputStream os = conn.getOutputStream();
 			os.write(data.getBytes("UTF-8"));
-			os.flush();
 		}
 	}
 

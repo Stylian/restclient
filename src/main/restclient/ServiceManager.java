@@ -1,8 +1,6 @@
 package main.restclient;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -12,7 +10,7 @@ public class ServiceManager {
 	public static final String USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11"
 			+ " (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11";
 
-	private ServiceResponse responseData;
+	private TransmissionMetadata metadata;
 	
 	public ServiceManager() { }
 	
@@ -41,23 +39,15 @@ public class ServiceManager {
 			os.write(data.getBytes("UTF-8"));
 			os.flush();
 		}
-
-		BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
-
-		String output;
-		StringBuilder jsonOutputBuilder = new StringBuilder();
-		while ((output = br.readLine()) != null) {
-			jsonOutputBuilder.append(output);
-		}
 		
-		responseData = new ServiceResponse(jsonOutputBuilder.toString(), conn.getRequestMethod(), conn.getResponseCode());
-				
+		metadata = TransmissionMetadata.grabData(conn);
+
 		conn.disconnect();
 		
 	}
 
-	public ServiceResponse getResponseData() {
-		return responseData;
+	public TransmissionMetadata getMetadata() {
+		return metadata;
 	}
-	
+
 }

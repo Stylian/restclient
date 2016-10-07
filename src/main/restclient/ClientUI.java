@@ -8,8 +8,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.io.StringWriter;
-import java.io.Writer;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -155,7 +153,6 @@ public class ClientUI {
 		console = new JTextArea();
 		DefaultCaret caret = (DefaultCaret)console.getCaret();
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
-//		console.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		console.setWrapStyleWord(true);
 		console.setLineWrap(true);
 		console.setSize(size);
@@ -178,9 +175,8 @@ public class ClientUI {
 					serv.send(enteredURL.getText(), getMethod(), jsonData.getText(), null);
 					
 					StringBuilder sb = new StringBuilder();
-					sb.append("\n Request Method: " + serv.getResponseData().getRequestMethod());
-					sb.append("\n Status Code: " + serv.getResponseData().getStatusCode());
-					sb.append("\n Response: \n" + serv.getResponseData().getResponseData());
+					sb.append("\n Status Code: " + serv.getMetadata().getStatusCode());
+					sb.append("\n Response: \n" + serv.getMetadata().getResponse());
 					console.setText(sb.toString());
 				} catch (IOException e1) {
 					console.append("url does not seem correct\n");

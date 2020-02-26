@@ -1,4 +1,4 @@
-module ui {
-    requires core;
+module restclient.ui {
+    requires restclient.core;
     requires java.desktop;
 }

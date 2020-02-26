@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
-      <module fileurl="file://$PROJECT_DIR$/restclient.iml" filepath="$PROJECT_DIR$/restclient.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ui/ui.iml" filepath="$PROJECT_DIR$/ui/ui.iml" />
+      <module fileurl="file://$PROJECT_DIR$/core/restclient.core.iml" filepath="$PROJECT_DIR$/core/restclient.core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ui/restclient.ui.iml" filepath="$PROJECT_DIR$/ui/restclient.ui.iml" />
     </modules>
   </component>
 </project>

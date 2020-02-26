@@ -1,2 +1,2 @@
-module core {
+module restclient.core {
 }

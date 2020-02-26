@@ -1,4 +1,4 @@
-package main.restclient;
+package main.java;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -167,43 +167,43 @@ public class ClientUI {
 	
 	private void createSubmitButton() {
 		submitBtn = new JButton("Send");
-		submitBtn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ServiceManager serv = new ServiceManager();
-				try {
-					serv.send(enteredURL.getText(), getMethod(), jsonData.getText());
-					
-					StringBuilder sb = new StringBuilder();
-					sb.append("\n Status Code: " + serv.getMetadata().getStatusCode());
-					sb.append("\n Response: \n" + serv.getMetadata().getResponse());
-					console.setText(sb.toString());
-				} catch (IOException e1) {
-					console.append("url does not seem correct\n");
-				} catch (Exception e1) {
-					console.append("you have not selected a method!\n");
-				}
-			}
-		});		
+//		submitBtn.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				ServiceManager serv = new ServiceManager();
+//				try {
+//					serv.send(enteredURL.getText(), getMethod(), jsonData.getText());
+//
+//					StringBuilder sb = new StringBuilder();
+//					sb.append("\n Status Code: " + serv.getMetadata().getStatusCode());
+//					sb.append("\n Response: \n" + serv.getMetadata().getResponse());
+//					console.setText(sb.toString());
+//				} catch (IOException e1) {
+//					console.append("url does not seem correct\n");
+//				} catch (Exception e1) {
+//					console.append("you have not selected a method!\n");
+//				}
+//			}
+//		});
 	}
 	
-	private Method getMethod() throws Exception {
-
-		if(getBtn.isSelected()) {
-			return Method.GET;
-		}
-		if(postBtn.isSelected()) {
-			return Method.POST;
-		}
-		if(putBtn.isSelected()) {
-			return Method.PUT;
-		}
-		if(deleteBtn.isSelected()) {
-			return Method.DELETE;
-		}
-		
-		throw new Exception("no method button has been selected!");
-	}
+//	private Method getMethod() throws Exception {
+//
+//		if(getBtn.isSelected()) {
+//			return Method.GET;
+//		}
+//		if(postBtn.isSelected()) {
+//			return Method.POST;
+//		}
+//		if(putBtn.isSelected()) {
+//			return Method.PUT;
+//		}
+//		if(deleteBtn.isSelected()) {
+//			return Method.DELETE;
+//		}
+//
+//		throw new Exception("no method button has been selected!");
+//	}
 	
 }
 

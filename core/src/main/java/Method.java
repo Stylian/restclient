@@ -1,4 +1,4 @@
-package main.restclient;
+package main.java;
 
 public enum Method {
 	GET,

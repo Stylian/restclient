@@ -8,6 +8,4 @@ mvn -pl core  install // for specific project
 
 ## todo
 
-
-to rewrite http with the java 11 one 
 https://openjdk.java.net/groups/net/httpclient/intro.html

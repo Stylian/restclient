@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/console/restclient.console.iml" filepath="$PROJECT_DIR$/console/restclient.console.iml" />
       <module fileurl="file://$PROJECT_DIR$/core/restclient.core.iml" filepath="$PROJECT_DIR$/core/restclient.core.iml" />
       <module fileurl="file://$PROJECT_DIR$/ui/restclient.ui.iml" filepath="$PROJECT_DIR$/ui/restclient.ui.iml" />
     </modules>

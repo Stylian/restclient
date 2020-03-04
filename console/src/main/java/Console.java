@@ -1,57 +1,84 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.http.HttpResponse;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 public class Console {
 
-    public static final List<String> supportedMethods = new ArrayList<>(Arrays.asList(new String[]{
-            "GET",
-            "POST",
-            "PUT",
-            "DELETE",
-            "PATCH",
-    }));
+    private String method;
+    private String url;
+    private String body;
+    public StringBuilder output;
 
-    /**
-     * arg[0] : method (eg. GET )
-     * arg[1] : url (eg. http://jsonplaceholder.typicode.com/posts/1 )
-     * arg[2] : body if any
-     * @param args
-     */
-    public static void main(String[] args) {
+    public void run(String[] args) throws MalformedURLException, IncorrectNumberOfArgumentsException, JSONException,
+            ExecutionException, InterruptedException {
+        gatherAndValidateParams(args);
+        Client client = new Client();
+        HttpResponse<String> response = switch (method) {
+            case "GET" -> client.get(url);
+            case "POST" -> client.post(url, body);
+            case "PUT" -> client.put(url, body);
+            case "DELETE" -> client.delete(url);
+            case "PATCH" -> client.patch(url, body);
+            default -> null; // should never reach this as method are validated above
+        };
 
-        Console console = new Console();
+//        output.append(response.headers().map().toString());
+        output.append(" status code: " + response.statusCode());
+        output.append(" method: " + response.request().method());
+        output.append(" method: " + response.request().headers().map().toString());
+        output.append(" body: " + response.body());
 
-        try {
-            console.parseMethod(args);
-
-
-
-
-
-
-        } catch (MethodNotFoundException e) {
-            e.printStackTrace();
-        }
 
     }
 
-    private String method;
-
-    public void parseMethod(String[] args) throws MethodNotFoundException {
-        if (args.length < 1) {
-            System.out.println("method name was not found");
-            throw new MethodNotFoundException();
+    private void gatherAndValidateParams(String[] args) throws IncorrectNumberOfArgumentsException, MalformedURLException {
+        if(args.length < 2) {
+            throw new IncorrectNumberOfArgumentsException();
         }
 
+        parseMethod(args);
+
+        // check arguments being correct
+        if("GET".equals(method)) {
+            if(args.length > 2) {
+                throw new IncorrectNumberOfArgumentsException();
+            }
+        }else {
+            if(args.length > 3) {
+                throw new IncorrectNumberOfArgumentsException();
+            }
+        }
+
+        parseUrl(args);
+        if("POST".equals(method) || "PUT".equals(method) || "PATCH".equals(method)) {
+            parseBody(args);
+        }
+    }
+
+    private void parseMethod(String[] args) throws IllegalArgumentException {
+
         String candidateMethod = args[0].toUpperCase();
-        if(!supportedMethods.contains(candidateMethod)) {
-            System.out.println("method requested does not exist or not supported");
-            System.out.println("the methods supported are: " + supportedMethods.stream().collect(Collectors.joining(", ")));
-            throw new MethodNotFoundException();
+        if(!Runner.supportedMethods.contains(candidateMethod)) {
+           throw new IllegalArgumentException();
         }
 
         this.method = candidateMethod;
+    }
+
+    private void parseUrl(String[] args) throws MalformedURLException {
+        String candidateUrl = args[1];
+        new URL(candidateUrl);
+        this.url = candidateUrl;
+    }
+
+    private void parseBody(String[] args) throws JSONException {
+        String candidateBody = args[2];
+        new JSONObject(candidateBody);
+        this.body = candidateBody;
     }
 }

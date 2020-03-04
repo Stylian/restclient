@@ -7,11 +7,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="restclient.core" />
+        <module name="restclient.console" />
         <module name="restclient.ui" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="restclient" target="13" />
+      <module name="restclient.console" target="13" />
       <module name="restclient.core" target="13" />
       <module name="restclient.ui" target="13" />
     </bytecodeTargetLevel>

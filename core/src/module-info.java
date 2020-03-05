@@ -1,2 +1,2 @@
-module restclient.core {
+module com.stylian.restclient.core {
 }

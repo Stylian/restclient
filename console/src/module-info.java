@@ -1,3 +1,3 @@
-module restclient.console {
-    requires restclient.core;
+module com.stylian.restclient.console {
+    requires com.stylian.restclient.core;
 }

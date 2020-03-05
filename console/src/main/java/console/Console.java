@@ -1,3 +1,7 @@
+package console;
+
+import core.Client;
+import org.apache.commons.text.TextStringBuilder;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -5,14 +9,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.http.HttpResponse;
 import java.util.concurrent.ExecutionException;
-import java.util.stream.Collectors;
 
 public class Console {
 
     private String method;
     private String url;
     private String body;
-    public StringBuilder output;
+    public TextStringBuilder output = new TextStringBuilder();
 
     public void run(String[] args) throws MalformedURLException, IncorrectNumberOfArgumentsException, JSONException,
             ExecutionException, InterruptedException {
@@ -27,11 +30,16 @@ public class Console {
             default -> null; // should never reach this as method are validated above
         };
 
-//        output.append(response.headers().map().toString());
-        output.append(" status code: " + response.statusCode());
-        output.append(" method: " + response.request().method());
-        output.append(" method: " + response.request().headers().map().toString());
-        output.append(" body: " + response.body());
+        output.appendln("------------ HEADER ------------");
+        output.appendln(" method: " + response.request().method());
+        output.appendln(" status code: " + response.statusCode());
+        output.appendln(" content-type: " + response.headers().map().get("content-type").get(0));
+        output.appendln(" content-length: " + response.headers().map().get("content-length").get(0));
+        output.appendln(" date: " + response.headers().map().get("date").get(0));
+        output.appendln(" connection: " + response.headers().map().get("connection").get(0));
+
+        output.appendln("------------ BODY ------------");
+        output.appendln(response.body());
 
 
     }

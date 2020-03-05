@@ -1,3 +1,5 @@
+package console;
+
 import org.json.JSONException;
 
 import java.net.MalformedURLException;

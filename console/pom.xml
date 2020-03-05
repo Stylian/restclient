@@ -6,9 +6,19 @@
     <version>1.0</version>
     <dependencies>
         <dependency>
+            <groupId>com.stylian.restclient.core</groupId>
+            <artifactId>core</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20190722</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+            <version>1.8</version>
         </dependency>
     </dependencies>
     <packaging>jar</packaging>

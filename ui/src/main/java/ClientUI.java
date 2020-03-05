@@ -82,7 +82,7 @@ public class ClientUI {
 		Dimension size = new Dimension(768, 680);
 		
 		JFrame frame = new JFrame();
-		frame.setTitle("Rest Client");
+		frame.setTitle("Rest core.Client");
 		frame.setContentPane(container);
 		frame.setMinimumSize(size);
 		frame.setMaximumSize(size);

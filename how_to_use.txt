@@ -1,0 +1,6 @@
+
+1. run mvn install to get a new console.jar
+2. copy-paste build directory where needed
+3. run like this
+
+./restclient.sh GET http://www.example.com

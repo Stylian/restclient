@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="restclient.console:jar">
+    <output-path>$PROJECT_DIR$/console/target/compiler/artifacts/restclient_console_jar</output-path>
+    <root id="archive" name="restclient.console.jar">
+      <element id="module-output" name="restclient.console" />
+      <element id="module-output" name="restclient.core" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/json/json/20190722/json-20190722.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/commons/commons-text/1.8/commons-text-1.8.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/commons-io/commons-io/2.6/commons-io-2.6.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/commons/commons-lang3/3.9/commons-lang3-3.9.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

@@ -34,13 +34,11 @@ public class Console {
         output.appendln(" method: " + response.request().method());
         output.appendln(" status code: " + response.statusCode());
         output.appendln(" content-type: " + response.headers().map().get("content-type").get(0));
-        output.appendln(" content-length: " + response.headers().map().get("content-length").get(0));
         output.appendln(" date: " + response.headers().map().get("date").get(0));
         output.appendln(" connection: " + response.headers().map().get("connection").get(0));
 
         output.appendln("------------ BODY ------------");
         output.appendln(response.body());
-
 
     }
 

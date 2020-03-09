@@ -4,12 +4,11 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.file.Paths;
 import java.util.concurrent.ExecutionException;
 
 public class Client {
 
-    HttpClient client = HttpClient.newHttpClient();
+    HttpClient httpClient = HttpClient.newHttpClient();
 
     public HttpResponse<String> get(String url) throws ExecutionException, InterruptedException {
 
@@ -17,7 +16,7 @@ public class Client {
                 .uri(URI.create(url))
                 .build();
 
-        return client.sendAsync(request, HttpResponse.BodyHandlers.ofString()).get();
+        return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString()).get();
     }
 
     public HttpResponse<String> post(String url, String data) throws ExecutionException, InterruptedException {
@@ -40,7 +39,7 @@ public class Client {
                 .method(method, HttpRequest.BodyPublishers.ofString(data))
                 .build();
 
-        return client.sendAsync(request, HttpResponse.BodyHandlers.ofString()).get();
+        return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString()).get();
     }
 
     public HttpResponse<String> delete(String url) throws ExecutionException, InterruptedException {
@@ -50,7 +49,7 @@ public class Client {
                 .method("DELETE", HttpRequest.BodyPublishers.noBody())
                 .build();
 
-        return client.sendAsync(request, HttpResponse.BodyHandlers.ofString()).get();
+        return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString()).get();
     }
 
 }

@@ -19,10 +19,6 @@ public class Console {
 
     public void run(String[] args) throws MalformedURLException, IncorrectNumberOfArgumentsException, JSONException,
             ExecutionException, InterruptedException {
-        System.out.println(args.length);
-        System.out.println(args[0]);
-        System.out.println(args[1]);
-        System.out.println(args[2]);
         gatherAndValidateParams(args);
         Client client = new Client();
         HttpResponse<String> response = switch (method) {

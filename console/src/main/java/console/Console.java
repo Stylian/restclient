@@ -78,6 +78,10 @@ public class Console {
 
     private void parseUrl(String[] args) throws MalformedURLException {
         String candidateUrl = args[1];
+        if(!candidateUrl.startsWith("http")) {
+            candidateUrl = "http://" + candidateUrl;
+        }
+
         new URL(candidateUrl);
         this.url = candidateUrl;
     }

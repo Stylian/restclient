@@ -1,4 +1,3 @@
 
-to support non http specifications
 to do body in request support with dropping files in script
 to support script flags

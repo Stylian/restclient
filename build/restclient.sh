@@ -18,7 +18,7 @@ added_params="$(IFS=; printf '%s' "${var[*]/__param__/&}")"
 echo additional parameters: $added_params
 
 echo body: $body
-echo -----------------
+echo ----------------------------------
 
 if [[ $url == *"?"* ]]; then
   url=${url}${added_params}

@@ -51,7 +51,7 @@ public class Console {
 
         // check arguments being correct
         if("GET".equals(method)) {
-            if(args.length > 2) {
+            if(args.length > 2 && !args[2].isBlank()) {
                 throw new IncorrectNumberOfArgumentsException();
             }
         }else {
